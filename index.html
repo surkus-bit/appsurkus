@@ -76,13 +76,13 @@ button,input,select,textarea{font:inherit;color:inherit}
 .search:focus-within{box-shadow:0 0 0 3px var(--sky),0 18px 50px -18px rgba(0,0,0,.6)}
 .hero-facts{margin-top:20px;display:flex;gap:22px;color:#9fb2e0;font-size:15px;flex-wrap:wrap}
 .hero-facts b{color:#fff;font-weight:700}
-.tiles{display:grid;grid-template-columns:repeat(3,92px);gap:20px;justify-content:center;transform:rotate(-8deg);justify-self:center}
+.tiles{display:grid;grid-template-columns:repeat(3,var(--logo-lg));gap:20px;justify-content:center;transform:rotate(-8deg);justify-self:center}
 .tiles>*:nth-child(n+4){transform:translateX(34px)}
-.tile{display:flex;flex-direction:column;align-items:center;gap:8px;color:#dbe6ff;font-size:12.5px;font-weight:600;width:92px;text-align:center;animation:pop .6s cubic-bezier(.2,.9,.3,1.2) backwards;animation-delay:calc(var(--i)*70ms)}
-.tile span{max-width:92px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tile{display:flex;flex-direction:column;align-items:center;gap:8px;color:#dbe6ff;font-size:12.5px;font-weight:600;width:var(--logo-lg);text-align:center;animation:pop .6s cubic-bezier(.2,.9,.3,1.2) backwards;animation-delay:calc(var(--i)*70ms)}
+.tile span{max-width:var(--logo-lg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tile:hover .logo{transform:translateY(-4px)}
 .tile .logo{transition:transform .2s}
-.ghost-tile{width:92px;height:92px;border-radius:var(--r-tile);border:1.5px dashed rgba(92,200,255,.28)}
+.ghost-tile{width:var(--logo-lg);height:var(--logo-lg);border-radius:var(--r-tile);border:1.5px dashed rgba(92,200,255,.28)}
 @keyframes pop{from{opacity:0;transform:scale(.6)}}
 @media (prefers-reduced-motion:reduce){.tile{animation:none}*{transition:none!important;scroll-behavior:auto!important}}
 
@@ -373,17 +373,16 @@ section.block{padding-top:20px}
 .block-h{margin-bottom:10px}.block-h h2{font-size:26px}
 .chips{padding:2px 16px 10px;margin:0 -16px}
 .chip-btn{padding:7px 14px;font-size:14px}.chip-btn small{display:none}
-.recent{grid-auto-columns:96px;gap:16px;padding:4px 16px 8px;margin:0 -16px}
+.recent{grid-auto-columns:var(--logo-lg);gap:16px;padding:4px 16px 8px;margin:0 -16px}
 .mini{flex-direction:column;align-items:flex-start;gap:8px;padding:0;background:none;border:0;color:var(--ink)}
 .mini:hover{background:none}
-.mini .logo{width:96px!important;height:96px!important;font-size:38px!important}
+.mini .logo{--s:var(--logo-lg)}
 .mini h3{font:600 15px/1.25 var(--font-body);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mini small{color:var(--muted);font-size:12.5px}
 /* daftar aplikasi berbentuk baris */
 .grid{grid-template-columns:1fr;gap:0}
 .card,.card:hover{align-items:center;gap:14px;padding:12px 0;border:0;border-radius:0;background:transparent;box-shadow:none;transform:none}
 .card:active{background:var(--wash)}
-.card .logo{width:60px!important;height:60px!important;font-size:24px!important}
 .card-body{flex:1}
 .card h3{font:600 16px/1.25 var(--font-body)}
 .card .meta{margin-top:2px;gap:6px}
@@ -393,8 +392,8 @@ section.block{padding-top:20px}
 .card::after{content:'Lihat';flex:none;border:1px solid #c9a24d;color:#7a5c1d;border-radius:999px;padding:6px 16px;font-weight:600;font-size:14px}
 /* halaman detail */
 .back{margin:12px 0 4px}
-.d-head{display:grid;grid-template-columns:88px minmax(0,1fr);gap:4px 16px;align-items:center;justify-content:stretch;text-align:left;background:none;border:0;box-shadow:none;color:var(--ink);padding:8px 0 4px;border-radius:0}
-.d-head .logo{width:88px!important;height:88px!important;font-size:34px!important}
+.d-head{display:grid;grid-template-columns:var(--logo-lg) minmax(0,1fr);gap:4px 16px;align-items:center;justify-content:stretch;text-align:left;background:none;border:0;box-shadow:none;color:var(--ink);padding:8px 0 4px;border-radius:0}
+.d-head .logo{--s:var(--logo-lg)}
 .d-head h1{font-size:32px;color:var(--ink)}
 .d-head .sub{color:#8a6a25;font-weight:600;margin-top:4px}
 .d-head .meta{justify-content:flex-start}.d-head .tag{background:none;padding:0;color:var(--muted)}.d-head .ver{color:var(--muted)}
@@ -461,6 +460,194 @@ body:not(.pm) #toasts{bottom:calc(64px + env(safe-area-inset-bottom))}
 body.nav-hide .bn,body.nav-hide .side nav{transform:translateY(105%)}
 }
 </style>
+<style id="konsisten">
+/* =========================================================================
+   SURKUS APPS — sistem ukuran & animasi
+   Semua ukuran logo, teks, jarak, dan sudut mengambil nilai dari token di
+   bawah. Mau mengubah ukuran? Cukup ganti angka di :root, jangan di tempat lain.
+   Letakkan SETELAH semua <style> lain.
+   ========================================================================= */
+:root{
+  /* logo aplikasi: hanya 3 ukuran */
+  --logo-sm:48px;   /* baris daftar admin */
+  --logo-md:64px;   /* kartu aplikasi, "Baru diperbarui", pratinjau */
+  --logo-lg:96px;   /* ubin hero, header detail, carousel HP */
+  /* jarak */
+  --sp-1:8px; --sp-2:12px; --sp-3:16px; --sp-4:24px; --sp-5:40px;
+  /* sudut */
+  --r-ctl:12px;     /* tombol, kolom isian */
+  --r-card:20px;    /* kartu, panel, modal, daftar */
+  --r-hero:24px;    /* header detail, kotak login */
+  /* teks */
+  --fs-2xs:12px; --fs-xs:13px; --fs-sm:15px; --fs-md:16px; --fs-lg:18px;
+  --fs-h4:21px; --fs-h3:24px; --fs-h2:clamp(26px,4vw,38px); --fs-title:clamp(32px,5vw,48px);
+  /* tinggi kontrol */
+  --ctl:44px; --ctl-sm:36px;
+  /* gerak */
+  --ease:cubic-bezier(.2,.8,.2,1); --t-fast:.15s; --t:.25s;
+}
+
+/* ---------- logo aplikasi ---------- */
+.logo{--s:var(--logo-md);width:var(--s);height:var(--s);font-size:calc(var(--s)*.42)}
+.logo.sz-sm{--s:var(--logo-sm)}
+.logo.sz-md{--s:var(--logo-md)}
+.logo.sz-lg{--s:var(--logo-lg)}
+
+/* ---------- logo website (header, footer, login, sidebar) ---------- */
+.brand{--mark:36px}
+.foot .brand{--mark:32px}
+.login .brand{--mark:44px}
+.brand svg{width:var(--mark);height:var(--mark)}
+.brand .bm{width:auto;height:var(--mark);max-width:calc(var(--mark)*4);min-width:0;object-fit:contain;
+  border-radius:calc(var(--mark)*.28);background:transparent;animation:fadeIn .45s ease backwards}
+.brand b{font-size:calc(var(--mark)*.56)}
+@media (max-width:700px){.top .brand{--mark:32px}}
+.side .brand{--mark:32px}
+.side .brand b{white-space:nowrap;letter-spacing:.08em}
+
+/* ---------- teks ---------- */
+body{font-size:var(--fs-md)}
+.hero .lead{font-size:var(--fs-lg)}
+.nav a,.chip-btn,.card p,.info div,.cl,.cl-p,.f>span,.res,.logline,.dl-note,.stat span,.foot,
+.btn.small,.ver-top .when,.block-h p,.who b{font-size:var(--fs-sm)}
+.tag,.ver,.badge,.tile,.mini small,.f small,.d-cta small,.li.head,.li .nm small,.who,.logline .t{font-size:var(--fs-xs)}
+.block-h h2{font-size:var(--fs-h2)}
+.d-head h1,.am h1{font-size:var(--fs-title)}
+.panel h2,.h-sec,.login h1{font-size:var(--fs-h3)}
+.card h3,.mini h3,.empty h3,.errbox h3,.modal-h h3,.ver-top b,.vrow b{font-size:var(--fs-h4)}
+.h-sec{font-family:var(--font-display);font-weight:600;margin:8px 0 12px}
+.panel .h-sec{margin-top:0}
+@media (max-width:700px){
+  .card h3,.mini h3{font-size:var(--fs-md)}
+  .card p,.mini small,.info dt{font-size:var(--fs-xs)}
+  .bn a{font-size:var(--fs-2xs)}
+}
+
+/* ---------- sudut & kontrol ---------- */
+.btn,.btn.small,.btn.big,.in{border-radius:var(--r-ctl)}
+.btn{min-height:var(--ctl)}.btn.small{min-height:var(--ctl-sm)}.in{min-height:var(--ctl)}
+.stat,.list,.empty,.errbox,.skel{border-radius:var(--r-card)}
+.login .box{border-radius:var(--r-hero)}
+@media (min-width:701px){
+  .card,.panel,.mini,.modal{border-radius:var(--r-card)}
+  .d-head{border-radius:var(--r-hero)}
+}
+
+/* ---------- jarak & tinggi baris ---------- */
+.recent{scroll-padding-inline:20px}
+@media (max-width:700px){.recent,.shots{scroll-padding-inline:16px}}
+.grid,.stats,.recent{gap:var(--sp-3)}
+.formgrid{gap:0 var(--sp-3)}
+.skel{height:112px}
+@media (min-width:701px){.card{min-height:112px}}
+@media (max-width:700px){.skel{height:76px;margin:6px 0;border-radius:14px}.mini .logo{--s:var(--logo-lg)}}
+
+/* ---------- screenshot: semua sama besar ---------- */
+.shots button{width:clamp(150px,18vw,200px);height:auto;aspect-ratio:9/16}
+.shots img{width:100%;height:100%;object-fit:cover}
+.upl-th,.upl-add{aspect-ratio:9/16}
+
+/* =========================================================================
+   ANIMASI
+   Gerak dipakai untuk: pembukaan halaman (hero), daftar yang muncul, respons
+   saat ditekan, dan jendela yang terbuka/tertutup. Semuanya mati otomatis
+   bila perangkat memakai "kurangi gerakan".
+   ========================================================================= */
+@keyframes fadeIn{from{opacity:0}}
+@keyframes fadeOut{to{opacity:0}}
+@keyframes zoomIn{from{opacity:0;transform:scale(.94) translateY(10px)}}
+@keyframes zoomOut{to{opacity:0;transform:scale(.96) translateY(6px)}}
+@keyframes sheetUp{from{transform:translateY(100%)}}
+@keyframes sheetDown{to{transform:translateY(100%)}}
+@keyframes floaty{0%,100%{translate:0 0}50%{translate:0 -7px}}
+@keyframes drift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-40px,22px,0)}}
+@keyframes shine{0%{transform:translateX(-140%) skewX(-20deg)}24%,100%{transform:translateX(340%) skewX(-20deg)}}
+@keyframes sweep{from{transform:translateX(-140%) skewX(-20deg)}to{transform:translateX(340%) skewX(-20deg)}}
+@keyframes toastOut{to{opacity:0;transform:translateY(8px)}}
+
+/* pembukaan halaman: urut dari judul → pencarian → angka → ubin */
+.hero .lead{animation:rise .8s var(--ease) .12s backwards}
+.hero .search{animation:rise .8s var(--ease) .22s backwards}
+.hero-facts{animation:rise .8s var(--ease) .32s backwards}
+.hero::after{content:"";position:absolute;width:520px;height:520px;right:-140px;top:-220px;pointer-events:none;
+  background:radial-gradient(circle,rgba(230,201,122,.22),transparent 65%);animation:drift 16s ease-in-out infinite}
+.hero .wrap{z-index:1}
+.tile .logo{animation:floaty 5.5s ease-in-out infinite;animation-delay:calc(var(--i,0)*-.9s);transition:transform .2s,scale .2s}
+.tile:hover .logo{animation-play-state:paused;scale:1.06}
+
+/* pergantian halaman */
+#main>*,.am>*{animation:fadeIn .35s ease backwards}
+.login .box{animation:rise .6s var(--ease) backwards}
+
+/* daftar aplikasi muncul berurutan (sekali, saat dibuka atau ganti kategori) */
+.grid.enter>.card,.recent>.mini{animation:rise .55s var(--ease) backwards;animation-delay:calc(var(--i,0)*45ms)}
+.stats>.stat{animation:rise .5s var(--ease) backwards;animation-delay:calc(var(--i,0)*55ms)}
+
+/* halaman detail */
+.d-head{animation:rise .6s var(--ease) backwards}
+.d-cols .panel{animation:rise .55s var(--ease) .12s backwards}
+.d-cols .panel+.panel{animation-delay:.2s}
+.d-cols .panel+.panel+.panel{animation-delay:.28s}
+.shots button{overflow:hidden}
+.shots img{transition:transform .45s var(--ease)}
+.shots button:hover img{transform:scale(1.05)}
+
+/* respons saat disentuh */
+.btn,.chip-btn,.icon-btn,.nb,.search,.card,.mini{transition:background var(--t-fast),border-color var(--t-fast),color var(--t-fast),box-shadow var(--t-fast),transform var(--t-fast),scale var(--t-fast)}
+.btn:active:not(:disabled),.chip-btn:active,.icon-btn:active,.nb:active{scale:.97}
+.btn.primary{position:relative;overflow:hidden;isolation:isolate}
+.btn.primary::after{content:"";position:absolute;top:0;bottom:0;left:0;width:38%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-140%) skewX(-20deg)}
+.btn.primary:hover:not(:disabled)::after{animation:sweep .8s var(--ease)}
+.btn.big.primary:not(:disabled)::after{animation:shine 5s var(--ease) 1.2s infinite}
+.btn.big.primary:hover:not(:disabled)::after{animation:sweep .8s var(--ease)}
+.brand svg,.brand .bm{transition:transform .4s var(--ease)}
+a:hover>.brand svg,a:hover>.brand .bm{transform:rotate(-6deg) scale(1.07)}
+.li:not(.head){transition:background var(--t-fast)}
+.li:not(.head):hover{background:var(--wash)}
+.bn a .ico{transition:background .2s,transform .2s var(--ease)}
+.bn a.on .ico{transform:scale(1.05)}
+.bn a:active .ico{transform:scale(.9)}
+
+/* jendela, lightbox, toast */
+.overlay{animation:fadeIn .18s ease backwards}
+.modal{animation:zoomIn .28s var(--ease) backwards}
+.overlay.closing{animation:fadeOut .18s ease forwards;pointer-events:none}
+.overlay.closing .modal{animation:zoomOut .18s ease forwards}
+@media (max-width:560px){
+  .modal{animation-name:sheetUp}
+  .overlay.closing .modal{animation-name:sheetDown}
+}
+.lightbox{animation:fadeIn .2s ease backwards}
+.lightbox img{animation:zoomIn .32s var(--ease) backwards}
+.lightbox.closing{animation:fadeOut .17s ease forwards;pointer-events:none}
+.toast.out{animation:toastOut .23s ease forwards}
+
+@media (max-width:700px){
+  .hero::after{display:none}
+  .hero .lead,.hero-facts{animation:none}
+}
+
+/* kurangi gerakan: matikan semua animasi dan transisi */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+
+/* =========================================================================
+   PANEL GANTI LOGO (admin → Pengaturan)
+   ========================================================================= */
+.logo-help{color:var(--muted);font-size:var(--fs-sm);margin:-4px 0 var(--sp-3)}
+.logo-prev-bar{display:flex;align-items:center;background:rgba(7,11,28,.94);border:1px solid rgba(212,180,106,.28);
+  border-radius:var(--r-ctl);padding:10px 14px;color:#fff}
+.logo-prev-row{display:flex;gap:var(--sp-3);align-items:center;margin:var(--sp-2) 0 var(--sp-3);flex-wrap:wrap}
+.logo-prev-sq{flex:none;width:88px;height:88px;display:grid;place-items:center;background:var(--wash);
+  border:1.5px dashed #c9a24d;border-radius:var(--r-card)}
+.logo-prev-sq .brand{--mark:72px}
+.logo-prev-row .upl-row{flex-direction:column;align-items:flex-start;flex:1 1 200px}
+.logo-state{display:block;color:var(--muted);font-size:var(--fs-xs);margin-top:var(--sp-1)}
+.logo-state.dirty{color:#8a6a25;font-weight:600}
+</style>
+
 </head>
 <body>
 <div id="app"></div>
@@ -493,7 +680,7 @@ function el(tag, props, ...kids) {
     else if (k === 'value') value = v;
     else if (k === 'checked') n.checked = !!v;
     else if (k === 'disabled') n.disabled = !!v;
-    else if (k === 'style' && typeof v === 'object') Object.assign(n.style, v);
+    else if (k === 'style' && typeof v === 'object') { for (const [sk, sv] of Object.entries(v)) { if (sk.startsWith('--')) n.style.setProperty(sk, sv); else n.style[sk] = sv; } }
     else if (k.startsWith('on') && typeof v === 'function') n.addEventListener(k.slice(2).toLowerCase(), v);
     else n.setAttribute(k, v === true ? '' : v);
   }
@@ -571,8 +758,10 @@ function toLocalInput(iso) {
 const fromLocalInput = v => v ? new Date(v).toISOString() : '';
 function hue(name) { let h = 0; for (const c of String(name)) h = (h * 31 + c.charCodeAt(0)) % 360; return 205 + (h % 50); }
 
+/* Ukuran logo hanya 3 pilihan: 'sm' (48px), 'md' (64px), 'lg' (96px). Nilainya ada di :root (--logo-sm/md/lg). */
 function logoTile(app, size) {
-  const box = el('span', { class: 'logo', style: { width: size + 'px', height: size + 'px', fontSize: Math.round(size * .42) + 'px' } });
+  const sz = typeof size === 'number' ? (size <= 52 ? 'sm' : size <= 72 ? 'md' : 'lg') : (size || 'md');
+  const box = el('span', { class: 'logo sz-' + sz });
   const initials = () => { box.replaceChildren(String(app.nama || '?').trim().slice(0, 2).toUpperCase()); box.style.background = `linear-gradient(135deg,hsl(${hue(app.nama)} 85% 52%),hsl(${hue(app.nama) + 20} 80% 28%))`; };
   const u = safeUrl(app.logo_url);
   if (u) {
@@ -586,9 +775,17 @@ function logoTile(app, size) {
 function toast(msg, kind, ms) {
   const t = el('div', { class: 'toast ' + (kind || ''), role: kind === 'err' ? 'alert' : 'status' }, msg);
   $('#toasts').append(t);
-  setTimeout(() => t.remove(), ms || (kind === 'err' ? 7000 : 3500));
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 230); }, ms || (kind === 'err' ? 7000 : 3500));
 }
 function spinner() { return el('span', { class: 'spin', 'aria-hidden': 'true' }); }
+function countUp(root) {
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  root.querySelectorAll('[data-n]').forEach(b => {
+    const n = Number(b.dataset.n); if (!(n > 0)) return;
+    const t0 = performance.now(), dur = 700;
+    (function f(t) { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); b.textContent = String(Math.round(n * e)); if (k < 1) requestAnimationFrame(f); })(t0);
+  });
+}
 function btn(label, o = {}) {
   return el('button', { type: o.type || 'button', class: 'btn ' + (o.kind || 'ghost') + (o.small ? ' small' : '') + (o.big ? ' big' : ''), onclick: o.onClick, disabled: o.disabled, title: o.title }, o.icon ? icon(o.icon) : null, label);
 }
@@ -600,7 +797,7 @@ async function busy(button, fn) {
 
 function openModal({ title, body, actions, wide }) {
   const prev = document.activeElement;
-  const close = () => { overlay.remove(); document.removeEventListener('keydown', onKey); if (prev && prev.focus) prev.focus(); };
+  const close = () => { if (overlay.classList.contains('closing')) return; document.removeEventListener('keydown', onKey); overlay.classList.add('closing'); setTimeout(() => overlay.remove(), 180); if (prev && prev.focus) prev.focus(); };
   const onKey = e => { if (e.key === 'Escape') close(); };
   const overlay = el('div', { class: 'overlay', onclick: e => { if (e.target === overlay) close(); } },
     el('div', { class: 'modal' + (wide ? ' wide' : ''), role: 'dialog', 'aria-modal': 'true', 'aria-label': title },
@@ -713,9 +910,9 @@ async function loadPub(force) {
   return P.data;
 }
 
-function appCard(a) {
-  return el('a', { class: 'card', href: '?app=' + encodeURIComponent(a.slug), 'data-nav': '' },
-    logoTile(a, 64),
+function appCard(a, i) {
+  return el('a', { class: 'card', style: { '--i': Math.min(i || 0, 10) }, href: '?app=' + encodeURIComponent(a.slug), 'data-nav': '' },
+    logoTile(a, 'md'),
     el('div', { class: 'card-body' },
       el('h3', { text: a.nama }),
       el('div', { class: 'meta' }, a.kategori_nama ? el('span', { class: 'tag', text: a.kategori_nama }) : null, a.versi ? el('span', { class: 'ver', text: 'v' + a.versi }) : null),
@@ -741,7 +938,7 @@ function drawHome(main) {
   for (let i = 0; i < 6; i++) {
     const a = tilesApps[i];
     tiles.append(a
-      ? el('a', { class: 'tile', style: { '--i': i }, href: '?app=' + encodeURIComponent(a.slug), 'data-nav': '' }, logoTile(a, 92), el('span', { text: a.nama }))
+      ? el('a', { class: 'tile', style: { '--i': i }, href: '?app=' + encodeURIComponent(a.slug), 'data-nav': '' }, logoTile(a, 'lg'), el('span', { text: a.nama }))
       : el('div', { class: 'ghost-tile', 'aria-hidden': 'true' }));
   }
   const input = el('input', { type: 'search', id: 'q', placeholder: 'Cari nama aplikasi, kategori, atau developer', value: P.q, autocomplete: 'off', 'aria-label': 'Cari aplikasi' });
@@ -752,20 +949,20 @@ function drawHome(main) {
       el('p', { class: 'lead', text: 'Cari aplikasi, baca catatan pembaruannya, lalu unduh APK versi terbaru.' }),
       el('form', { class: 'search', role: 'search', onsubmit: e => { e.preventDefault(); const t = $('#semua'); if (t) t.scrollIntoView({ behavior: 'smooth' }); } },
         icon('search'), input, btn('Cari', { kind: 'primary', type: 'submit' })),
-      el('div', { class: 'hero-facts' }, el('span', null, el('b', null, String(apps.length)), ' aplikasi'), el('span', null, el('b', null, String(d.categories.length)), ' kategori'))),
+      el('div', { class: 'hero-facts' }, el('span', null, el('b', { 'data-n': apps.length }, String(apps.length)), ' aplikasi'), el('span', null, el('b', { 'data-n': d.categories.length }, String(d.categories.length)), ' kategori'))),
     tiles));
 
   const chips = el('div', { class: 'chips', role: 'group', 'aria-label': 'Filter kategori' });
   const chipList = [{ id: '', slug: '', nama: 'Semua', jumlah: apps.length }].concat(d.categories);
   chipList.forEach(c => {
     const b = el('button', { type: 'button', class: 'chip-btn', 'aria-pressed': String(P.cat === c.slug) }, c.nama, el('small', { text: String(c.jumlah) }));
-    b.addEventListener('click', () => { P.cat = c.slug; syncUrl(); chips.querySelectorAll('.chip-btn').forEach((x, i) => x.setAttribute('aria-pressed', String(chipList[i].slug === P.cat))); drawGrid(); });
+    b.addEventListener('click', () => { P.cat = c.slug; syncUrl(); chips.querySelectorAll('.chip-btn').forEach((x, i) => x.setAttribute('aria-pressed', String(chipList[i].slug === P.cat))); drawGrid(true); });
     chips.append(b);
   });
 
   const recent = apps.slice(0, 6);
   const recentSec = recent.length ? el('section', { class: 'block' }, el('div', { class: 'block-h' }, el('div', null, el('h2', { text: 'Baru diperbarui' }), el('p', { text: 'Rilis dan pembaruan terakhir.' }))),
-    el('div', { class: 'recent' }, recent.map(a => el('a', { class: 'mini', href: '?app=' + encodeURIComponent(a.slug), 'data-nav': '' }, logoTile(a, 54),
+    el('div', { class: 'recent' }, recent.map((a, i) => el('a', { class: 'mini', style: { '--i': i }, href: '?app=' + encodeURIComponent(a.slug), 'data-nav': '' }, logoTile(a, 'md'),
       el('div', { style: { minWidth: 0 } }, el('h3', { text: a.nama }), el('small', { text: (a.versi ? 'v' + a.versi + ' · ' : '') + relDate(a.updated_at) })))))) : null;
 
   const all = el('section', { class: 'block', id: 'semua' },
@@ -773,7 +970,7 @@ function drawHome(main) {
     chips, el('div', { id: 'grid-wrap', style: { marginTop: '14px' } }));
 
   main.replaceChildren(hero, el('div', { class: 'wrap' }, recentSec, all));
-  drawGrid();
+  drawGrid(true); countUp(main);
 }
 
 function syncUrl() {
@@ -782,7 +979,7 @@ function syncUrl() {
   history.replaceState({}, '', BASE + (u.toString() ? '?' + u : ''));
 }
 
-function drawGrid() {
+function drawGrid(animate) {
   const wrap = $('#grid-wrap'); if (!wrap) return;
   const q = P.q.trim().toLowerCase();
   const list = P.data.apps.filter(a => (!P.cat || a.kategori_slug === P.cat) &&
@@ -793,11 +990,11 @@ function drawGrid() {
     wrap.replaceChildren(el('div', { class: 'empty' },
       el('h3', { text: none ? 'Belum ada aplikasi' : 'Tidak ada aplikasi yang cocok' }),
       el('p', { text: none ? 'Aplikasi akan muncul di sini setelah dipublikasikan oleh admin.' : 'Coba kata kunci lain atau pilih kategori Semua.' }),
-      none ? null : btn('Hapus filter', { kind: 'primary', onClick: () => { P.q = ''; P.cat = ''; syncUrl(); const i = $('#q'); if (i) i.value = ''; document.querySelectorAll('.chip-btn').forEach((x, k) => x.setAttribute('aria-pressed', String(k === 0))); drawGrid(); } })));
+      none ? null : btn('Hapus filter', { kind: 'primary', onClick: () => { P.q = ''; P.cat = ''; syncUrl(); const i = $('#q'); if (i) i.value = ''; document.querySelectorAll('.chip-btn').forEach((x, k) => x.setAttribute('aria-pressed', String(k === 0))); drawGrid(true); } })));
     wrap.firstChild.querySelector('.btn') && (wrap.firstChild.querySelector('.btn').style.marginTop = '14px');
     return;
   }
-  wrap.replaceChildren(el('div', { class: 'grid' }, list.map(appCard)));
+  wrap.replaceChildren(el('div', { class: 'grid' + (animate ? ' enter' : '') }, list.map((a, i) => appCard(a, i))));
 }
 
 /* ------------------------------ detail ------------------------------ */
@@ -830,7 +1027,7 @@ async function renderDetail(slug) {
     latest ? el('small', { text: 'v' + latest.versi + (latest.ukuran ? ' · ' + latest.ukuran : '') }) : el('small', { text: 'Belum ada versi yang dirilis' }));
   if (latest && !latest.can_download) note.textContent = 'Link download belum tersedia.';
 
-  const head = el('div', { class: 'd-head' }, logoTile(a, 104),
+  const head = el('div', { class: 'd-head' }, logoTile(a, 'lg'),
     el('div', { style: { minWidth: 0, flex: '1 1 240px' } }, el('h1', { text: a.nama }),
       a.developer ? el('p', { class: 'sub', text: 'oleh ' + a.developer }) : null,
       el('div', { class: 'meta' }, a.kategori_nama ? el('span', { class: 'tag', text: a.kategori_nama }) : null, latest ? el('span', { class: 'ver', text: 'v' + latest.versi }) : null)), cta);
@@ -866,7 +1063,7 @@ function row(k, v) { return el('div', null, el('dt', { text: k }), el('dd', { te
 
 function openLightbox(u) {
   const lb = el('div', { class: 'lightbox', role: 'dialog', 'aria-label': 'Screenshot', onclick: () => close() }, el('img', { src: u, alt: 'Screenshot diperbesar', referrerpolicy: 'no-referrer' }));
-  const close = () => { lb.remove(); document.removeEventListener('keydown', onKey); };
+  const close = () => { if (lb.classList.contains('closing')) return; document.removeEventListener('keydown', onKey); lb.classList.add('closing'); setTimeout(() => lb.remove(), 170); };
   const onKey = e => { if (e.key === 'Escape') close(); };
   document.addEventListener('keydown', onKey); document.body.append(lb);
 }
@@ -951,13 +1148,14 @@ function failView(m, e, retry) { m.replaceChildren(el('div', { class: 'errbox', 
 async function vDashboard(m) {
   loading(m);
   let d; try { d = await adm('dashboard'); } catch (e) { return failView(m, e, () => vDashboard(m)); }
-  const stat = (n, l) => el('div', { class: 'stat' }, el('b', { text: String(n) }), el('span', { text: l }));
+  let si = 0; const stat = (n, l) => el('div', { class: 'stat', style: { '--i': si++ } }, el('b', { 'data-n': n, text: String(n) }), el('span', { text: l }));
   m.replaceChildren(el('h1', { text: 'Dashboard' }), el('p', { class: 'sub', text: 'Ringkasan katalog SURKUS APPS.' }),
     d.database.ok ? null : el('div', { class: 'notice' }, 'Database belum lengkap. Hilang: ' + d.database.missing.join(', ')),
     el('div', { class: 'stats' }, stat(d.total_apps, 'Total aplikasi'), stat(d.published_apps, 'Aplikasi aktif (publik)'), stat(d.draft_apps, 'Aplikasi draft'),
       stat(d.total_categories, 'Kategori'), stat(d.total_versions, 'Versi'), stat(d.total_downloads, 'Total download')),
-    el('div', { class: 'bar' }, btn('Tambah aplikasi', { kind: 'primary', icon: 'plus', onClick: () => admGo('app') }), btn('Kelola aplikasi', { onClick: () => admGo('apps') })),
-    el('h2', { style: { fontSize: '20px', margin: '8px 0 12px' }, text: 'Aktivitas terbaru' }), logList(d.recent_activity));
+    el('div', { class: 'bar' }, btn('Tambah aplikasi', { kind: 'primary', icon: 'plus', onClick: () => admGo('app') }), btn('Kelola aplikasi', { onClick: () => admGo('apps') }), btn('Ganti logo situs', { icon: 'globe', onClick: () => admGo('account') })),
+    el('h2', { class: 'h-sec', text: 'Aktivitas terbaru' }), logList(d.recent_activity));
+  countUp(m);
 }
 function logList(items) {
   if (!items.length) return el('div', { class: 'empty' }, el('h3', { text: 'Belum ada aktivitas' }), el('p', { text: 'Tindakan admin akan tercatat di sini.' }));
@@ -981,7 +1179,7 @@ async function vApps(m) {
           const to = a.status === 'published' ? 'draft' : 'published';
           try { await adm('setAppStatus', { id: a.id, status: to }); toast(to === 'published' ? 'Dipublikasikan.' : 'Dijadikan draft.', 'ok'); vApps(m); } catch (e) { toast(e.message, 'err'); }
         } });
-        return el('div', { class: 'li' }, logoTile(a, 48), el('div', { class: 'nm' }, el('b', { text: a.nama }), el('small', { text: 'Diperbarui ' + fmtDate(a.updated_at) + ' · ' + a.downloads + ' download' })),
+        return el('div', { class: 'li' }, logoTile(a, 'sm'), el('div', { class: 'nm' }, el('b', { text: a.nama }), el('small', { text: 'Diperbarui ' + fmtDate(a.updated_at) + ' · ' + a.downloads + ' download' })),
           el('span', { class: 'c-cat', text: a.kategori_nama }), el('span', { class: 'c-ver', text: a.versi ? 'v' + a.versi : 'Belum ada versi' }),
           el('span', { class: 'c-st' }, el('span', { class: 'badge ' + (a.status === 'published' ? 'ok' : 'warn'), text: a.status === 'published' ? 'Publik' : 'Draft' })),
           el('div', { class: 'acts' }, btn('Edit', { small: true, onClick: () => admGo('app', a.id) }), toggle,
@@ -1022,7 +1220,7 @@ async function vAppEdit(m) {
   f.lengkap.value = app.deskripsi_lengkap || ''; f.kategori.value = app.kategori_id || ''; f.shots.value = data ? data.screenshots.join('\n') : '';
   const logoPrev = el('div', { class: 'prev' }); const shotPrev = el('div', { class: 'thumbs' });
   const drawPrev = () => {
-    logoPrev.replaceChildren(logoTile({ nama: f.nama.value || '?', logo_url: f.logo.value }, 56));
+    logoPrev.replaceChildren(logoTile({ nama: f.nama.value || '?', logo_url: f.logo.value }, 'md'));
     shotPrev.replaceChildren(...f.shots.value.split(/\r?\n/).map(s => safeUrl(s.trim())).filter(Boolean).slice(0, 10).map(u => el('img', { src: u, alt: '', referrerpolicy: 'no-referrer', onerror: e => e.target.remove() })));
   };
   f.logo.addEventListener('change', drawPrev); f.shots.addEventListener('change', drawPrev); f.nama.addEventListener('change', drawPrev); drawPrev();
@@ -1061,7 +1259,7 @@ async function vAppEdit(m) {
 
 function versionsPanel(m, app, versions) {
   const panel = el('div', { class: 'panel', style: { marginTop: '18px' } },
-    el('div', { class: 'block-h', style: { marginBottom: '6px' } }, el('div', null, el('h2', { text: 'Versi dan link download', style: { fontSize: '21px' } }), el('p', { text: 'Link MediaFire disimpan per versi.' })),
+    el('div', { class: 'block-h', style: { marginBottom: '6px' } }, el('div', null, el('h2', { class: 'h-sec', text: 'Versi dan link download' }), el('p', { text: 'Link MediaFire disimpan per versi.' })),
       btn('Tambah versi', { kind: 'primary', small: true, icon: 'plus', onClick: () => versionModal(m, app, null) })));
   if (!versions.length) { panel.append(el('div', { class: 'empty' }, el('h3', { text: 'Belum ada versi' }), el('p', { text: 'Tambahkan versi pertama agar tombol DOWNLOAD APK aktif.' }))); return panel; }
   versions.forEach(v => {
@@ -1165,19 +1363,43 @@ function vAccount(m) {
     try { await busy(s, () => adm('changePassword', { current_password: cur.value, new_password: nw.value })); toast('Password diganti.', 'ok'); cur.value = nw.value = nw2.value = ''; }
     catch (ex) { toast(ex.message, 'err'); }
   } }, field('Password saat ini', cur), field('Password baru', nw, 'Minimal 8 karakter.'), field('Ulangi password baru', nw2), s);
-  let logoUrl = SITE.logo || '';
-  const prev = el('div', { class: 'prev' });
-  const drawL = () => prev.replaceChildren(logoUrl ? el('img', { class: 'bm', src: logoUrl, alt: 'Logo situs', referrerpolicy: 'no-referrer', style: { width: '72px', height: '72px' } }) : defaultMark());
-  drawL();
+  let logoUrl = SITE.logo || '', dirty = false, saveL;
+  const state = el('small', { class: 'logo-state', 'aria-live': 'polite' });
+  const urlIn = el('input', { class: 'in', type: 'url', inputmode: 'url', placeholder: 'https://alamat-gambar-anda', 'aria-label': 'Link gambar logo situs' });
+  const prevBar = el('div', { class: 'logo-prev-bar' });
+  const prevSq = el('div', { class: 'logo-prev-sq' });
+  const markNode = () => {
+    const u = safeUrl(logoUrl); if (!u) return defaultMark();
+    const i = el('img', { class: 'bm', src: u, alt: '', referrerpolicy: 'no-referrer' });
+    i.addEventListener('error', () => { i.replaceWith(defaultMark()); state.textContent = 'Gambar tidak bisa dimuat. Periksa linknya atau unggah ulang.'; state.className = 'logo-state dirty'; });
+    return i;
+  };
+  const drawL = () => {
+    prevBar.replaceChildren(el('span', { class: 'brand' }, markNode(), el('b', null, 'SURKUS ', el('span', null, 'APPS'))));
+    prevSq.replaceChildren(el('span', { class: 'brand' }, markNode()));
+    urlIn.value = logoUrl;
+    state.className = 'logo-state' + (dirty ? ' dirty' : '');
+    state.textContent = dirty ? 'Belum disimpan. Tekan Simpan logo agar tampil di situs.' : (logoUrl ? 'Logo yang sedang dipakai di situs.' : 'Memakai logo bawaan SURKUS.');
+    if (saveL) saveL.disabled = !dirty;
+  };
   const pickB = btn('Pilih logo dari perangkat', { kind: 'primary', small: true, icon: 'plus', onClick: () => window.surkusPicker(false, async ([f]) => {
-    try { toast('Mengunggah…'); logoUrl = await window.surkusUpload(f, 'logo'); drawL(); toast('Logo terunggah. Tekan Simpan logo.', 'ok'); } catch (e) { toast(e.message, 'err'); } }) });
-  const delB = btn('Pakai logo bawaan', { small: true, onClick: () => { logoUrl = ''; drawL(); } });
-  const saveL = btn('Simpan logo', { kind: 'primary', onClick: async () => {
-    try { await busy(saveL, () => adm('saveSettings', { site_logo: logoUrl })); applySite({ site_logo: logoUrl }); P.data = null; toast('Logo situs disimpan.', 'ok'); }
+    try { toast('Mengunggah…'); logoUrl = await window.surkusUpload(f, 'logo'); dirty = true; drawL(); toast('Logo terunggah. Tekan Simpan logo.', 'ok'); } catch (e) { toast(e.message, 'err'); } }) });
+  const delB = btn('Pakai logo bawaan', { small: true, onClick: () => { logoUrl = ''; dirty = true; drawL(); } });
+  urlIn.addEventListener('change', () => {
+    const v = urlIn.value.trim();
+    if (v && !safeUrl(v)) { toast('Link logo harus diawali http:// atau https://', 'err'); urlIn.value = logoUrl; return; }
+    logoUrl = v; dirty = true; drawL();
+  });
+  saveL = btn('Simpan logo', { kind: 'primary', onClick: async () => {
+    try { await busy(saveL, () => adm('saveSettings', { site_logo: logoUrl })); applySite({ site_logo: logoUrl }); P.data = null; dirty = false; drawL(); toast('Logo situs disimpan.', 'ok'); }
     catch (e) { toast(/tidak dikenal/i.test(e.message) ? 'Backend belum diperbarui: pasang Code.gs terbaru lalu deploy versi baru.' : e.message, 'err'); } } });
-  const sitePanel = el('div', { class: 'panel', style: { maxWidth: '460px', marginBottom: '18px' } }, el('h2', { text: 'Logo situs', style: { fontSize: '21px', marginBottom: '12px' } }), prev,
-    el('div', { class: 'upl-row', style: { marginTop: '14px' } }, pickB, delB), saveL);
-  m.replaceChildren(el('h1', { text: 'Pengaturan' }), el('p', { class: 'sub', text: 'Masuk sebagai ' + ADM.user.username + ' (' + ADM.user.role + ').' }), sitePanel, el('h2', { style: { fontSize: '21px', margin: '0 0 10px' }, text: 'Ganti password' }), form);
+  drawL();
+  const sitePanel = el('div', { class: 'panel', style: { maxWidth: '460px', marginBottom: '18px' } }, el('h2', { class: 'h-sec', text: 'Logo situs' }),
+    el('p', { class: 'logo-help', text: 'Tampil di header, footer, halaman login admin, dan ikon tab browser. Pakai gambar persegi (PNG/JPG, minimal 256 px). Logo yang tidak persegi tetap tampil utuh.' }),
+    prevBar, el('div', { class: 'logo-prev-row' }, prevSq, el('div', { class: 'upl-row', style: { margin: 0 } }, pickB, delB)),
+    field('Atau tempel link gambar', urlIn, 'Opsional. Isi jika logo sudah ada di internet.'), state,
+    el('div', { style: { marginTop: '14px' } }, saveL));
+  m.replaceChildren(el('h1', { text: 'Pengaturan' }), el('p', { class: 'sub', text: 'Masuk sebagai ' + ADM.user.username + ' (' + ADM.user.role + ').' }), sitePanel, el('h2', { class: 'h-sec', style: { margin: '0 0 12px' }, text: 'Ganti password' }), form);
 }
 
 /* ------------------------------ mulai ------------------------------ */
@@ -1199,8 +1421,9 @@ function vAccount(m) {
     return new Promise((ok, no) => {
       const url = URL.createObjectURL(file), img = new Image();
       img.onload = () => {
-        const k = Math.min(1, max / Math.max(img.width, img.height)), c = document.createElement('canvas');
-        c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        const iw = img.naturalWidth || img.width || max, ih = img.naturalHeight || img.height || max;
+        const k = Math.min(1, max / Math.max(iw, ih)), c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(iw * k)); c.height = Math.max(1, Math.round(ih * k));
         const x = c.getContext('2d');
         if (mime === 'image/jpeg') { x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); }
         x.drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
@@ -1212,7 +1435,7 @@ function vAccount(m) {
   }
   async function upload(file, kind) {
     const mime = kind === 'logo' ? 'image/png' : 'image/jpeg';
-    try { return (await adm('uploadImage', { mime, data: await shrink(file, kind === 'logo' ? 420 : 1400, mime) })).url; }
+    try { return (await adm('uploadImage', { mime, data: await shrink(file, kind === 'logo' ? 512 : 1400, mime) })).url; }
     catch (e) { throw new Error(/tidak dikenal/i.test(e.message) ? 'Backend belum diperbarui: tambahkan fungsi uploadImage ke Code.gs lalu deploy versi baru.' : e.message); }
   }
   function picker(multi, onFiles) {
