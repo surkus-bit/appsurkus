@@ -294,7 +294,7 @@ textarea.in{resize:vertical;min-height:90px}
 :root{--navy-950:#04060f;--navy-900:#070b1c;--navy-800:#0d1430;--navy-700:#161f4a;--blue-700:#7a5c1d;--blue-600:#8a6a25;--blue-500:#c9a24d;--sky:#e6c97a;--sky-soft:#f6edd3;
 --ink:#0b1022;--muted:#6a6a73;--faint:#9a9588;--line:#e8dfc8;--paper:#fcfaf4;--wash:#f4efe2;
 --gold:linear-gradient(135deg,#f3dc9b 0%,#d4b46a 45%,#9c7a2e 100%);--font-display:'Cormorant Garamond','Times New Roman',Georgia,serif;--shadow:0 2px 4px rgba(7,11,28,.05),0 18px 40px -18px rgba(156,122,46,.45)}
-html,body{overflow-x:hidden}
+html,body{overflow-x:clip}
 body{background:var(--paper)}
 h1,h2,h3,h4{font-weight:600;letter-spacing:0}
 .top{background:rgba(7,11,28,.94);border-bottom:1px solid rgba(212,180,106,.28);padding-top:env(safe-area-inset-top)}
@@ -348,6 +348,73 @@ h1,h2,h3,h4{font-weight:600;letter-spacing:0}
  .nav a:last-child{display:none}.card{padding:16px}.am h1{font-size:32px}.stats{grid-template-columns:1fr 1fr}.bar .in{max-width:none}.bar>.btn{flex:1}
  #toasts{bottom:calc(12px + env(safe-area-inset-bottom))}}
 
+</style>
+<style id="playstore">
+/* ===== TAMPILAN HP ala Play Store, tema SURKUS ===== */
+.bn{display:none}
+.bn .ico{width:56px;height:30px;border-radius:16px;align-items:center;justify-content:center;transition:background .2s}
+.bn .ico svg{width:22px;height:22px}
+@media (max-width:700px){
+body.pm{padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+body.pm #toasts{bottom:calc(78px + env(safe-area-inset-bottom))}
+body.pm .bn{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;justify-content:space-around;background:rgba(252,250,244,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom))}
+.bn a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--muted);font-size:12px;font-weight:600;padding:2px 0}
+.bn a.on{color:#7a5c1d}.bn a.on .ico{background:var(--sky-soft)}
+.top .wrap{height:54px}.nav{display:none}
+#semua{scroll-margin-top:calc(130px + env(safe-area-inset-top))}
+/* beranda: bar cari melekat seperti Play Store */
+.hero{position:sticky;top:calc(54px + env(safe-area-inset-top));z-index:25;background:#070b1c;border-bottom:1px solid rgba(212,180,106,.3)}
+.hero::before{display:none}
+.hero .wrap{display:block;padding:6px 16px 12px;text-align:left}
+.hero h1,.hero .lead,.hero-facts{display:none}
+.search{margin:0;max-width:none;padding:4px 14px;border-radius:999px;box-shadow:none}
+.search input{font-size:16px;padding:9px 0}.search .btn{display:none}
+section.block{padding-top:20px}
+.block-h{margin-bottom:10px}.block-h h2{font-size:26px}
+.chips{padding:2px 16px 10px;margin:0 -16px}
+.chip-btn{padding:7px 14px;font-size:14px}.chip-btn small{display:none}
+.recent{grid-auto-columns:96px;gap:16px;padding:4px 16px 8px;margin:0 -16px}
+.mini{flex-direction:column;align-items:flex-start;gap:8px;padding:0;background:none;border:0;color:var(--ink)}
+.mini:hover{background:none}
+.mini .logo{width:96px!important;height:96px!important;font-size:38px!important}
+.mini h3{font:600 15px/1.25 var(--font-body);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mini small{color:var(--muted);font-size:12.5px}
+/* daftar aplikasi berbentuk baris */
+.grid{grid-template-columns:1fr;gap:0}
+.card,.card:hover{align-items:center;gap:14px;padding:12px 0;border:0;border-radius:0;background:transparent;box-shadow:none;transform:none}
+.card:active{background:var(--wash)}
+.card .logo{width:60px!important;height:60px!important;font-size:24px!important}
+.card-body{flex:1}
+.card h3{font:600 16px/1.25 var(--font-body)}
+.card .meta{margin-top:2px;gap:6px}
+.card .tag{background:none;padding:0;color:var(--muted);font-weight:500}
+.card .ver::before{content:'· '}
+.card p{font-size:13px;margin-top:2px;-webkit-line-clamp:1}
+.card::after{content:'Lihat';flex:none;border:1px solid #c9a24d;color:#7a5c1d;border-radius:999px;padding:6px 16px;font-weight:600;font-size:14px}
+/* halaman detail */
+.back{margin:12px 0 4px}
+.d-head{display:grid;grid-template-columns:88px minmax(0,1fr);gap:4px 16px;align-items:center;justify-content:stretch;text-align:left;background:none;border:0;box-shadow:none;color:var(--ink);padding:8px 0 4px;border-radius:0}
+.d-head .logo{width:88px!important;height:88px!important;font-size:34px!important}
+.d-head h1{font-size:32px;color:var(--ink)}
+.d-head .sub{color:#8a6a25;font-weight:600;margin-top:4px}
+.d-head .meta{justify-content:flex-start}.d-head .tag{background:none;padding:0;color:var(--muted)}.d-head .ver{color:var(--muted)}
+.d-cta{grid-column:1/-1;min-width:0;margin:12px 0 0}
+.d-cta .btn.big{width:100%;border-radius:999px}
+.d-cta small,.dl-note{color:var(--muted)}.dl-note a{color:#8a6a25}
+.d-cols{display:flex;flex-direction:column;gap:0;margin-top:14px}
+.d-cols aside{order:-1}
+aside .panel{padding:12px 0;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:transparent}
+aside .panel h2{display:none}
+.info{display:flex;overflow-x:auto;scrollbar-width:none}
+.info div,.info div:last-child{flex:0 0 auto;flex-direction:column-reverse;align-items:center;gap:2px;min-width:96px;padding:0 18px;border:0;border-left:1px solid var(--line);text-align:center}
+.info div:first-child{border-left:0;padding-left:0}
+.info dt{font-size:12.5px}.info dd{font-size:15px;text-align:center}
+.panel{border:0;border-radius:0;padding:18px 0;background:transparent}
+.panel+.panel{margin-top:0;border-top:1px solid var(--line)}
+.panel h2{font-size:24px}
+.shots{margin:0 -16px;padding:0 16px 8px}.shots button{height:280px;border-radius:14px}
+.foot{margin-top:28px;padding:20px 0}.foot .wrap{justify-content:center;text-align:center}
+}
 </style>
 </head>
 <body>
@@ -1118,6 +1185,21 @@ function vAccount(m) {
   }).observe(document.body, { childList: true, subtree: true });
 })();
 
+</script>
+<script>
+/* Menu bawah ala Play Store (hanya tampil di HP, halaman publik) */
+(function () {
+  const mk = (k, t, href, ic, nav) => { const a = el('a', { href, 'data-k': k }, icon(ic), el('span', null, t)); if (nav) a.setAttribute('data-nav', ''); return a; };
+  const bn = el('nav', { class: 'bn', 'aria-label': 'Menu bawah' }, mk('home', 'Beranda', location.pathname, 'grid', 1), mk('all', 'Aplikasi', location.pathname + '#semua', 'box', 0), mk('adm', 'Admin', '?page=admin', 'user', 1));
+  document.body.append(bn);
+  function sync() {
+    const q = new URLSearchParams(location.search), a = q.get('page') === 'admin';
+    document.body.classList.toggle('pm', !a);
+    bn.querySelectorAll('a').forEach(x => x.classList.toggle('on', x.dataset.k === (a ? 'adm' : q.get('app') ? '' : 'home')));
+  }
+  ['pushState', 'replaceState'].forEach(f => { const o = history[f]; history[f] = function () { const r = o.apply(this, arguments); sync(); return r; }; });
+  addEventListener('popstate', sync); sync();
+})();
 </script>
 </body>
 </html>
