@@ -430,6 +430,10 @@ aside .panel h2{display:none}
    Tidak ada password atau kredensial di file ini.
    ======================================================================== */
 const API_URL = 'https://script.google.com/macros/s/AKfycbwbE81hoE7Xj3fk6xUNNXd-XrGjZdufBLISgroJ_RcB69ZduU_KzXLKtfNFjL6bq7Y2/exec';   // contoh: 'https://script.google.com/macros/s/XXXXXXXX/exec'
+const IS_ADMIN_PATH = /\/admin\/?$/.test(location.pathname);      // alamat: situs/admin
+const BASE = location.pathname.replace(/\/admin\/?$/, '/');          // alamat beranda
+const ADMIN_HREF = IS_ADMIN_PATH ? location.pathname : '?page=admin';
+const isAdminRoute = () => IS_ADMIN_PATH || new URLSearchParams(location.search).get('page') === 'admin';
 
 /* ------------------------------ util DOM ------------------------------ */
 const $ = (s, r = document) => r.querySelector(s);
@@ -607,7 +611,7 @@ window.addEventListener('popstate', route);
 function route() {
   const q = new URLSearchParams(location.search);
   window.scrollTo(0, 0);
-  if (q.get('page') === 'admin') return renderAdmin();
+  if (isAdminRoute()) return renderAdmin();
   if (q.get('app')) return renderDetail(q.get('app'));
   return renderHome();
 }
@@ -619,10 +623,10 @@ function mountPublic(active) {
   if (!$('#main')) {
     $('#app').replaceChildren(
       el('header', { class: 'top' }, el('div', { class: 'wrap' },
-        el('a', { href: location.pathname, 'data-nav': '', 'aria-label': 'SURKUS APPS beranda' }, brand()),
+        el('a', { href: BASE, 'data-nav': '', 'aria-label': 'SURKUS APPS beranda' }, brand()),
         el('nav', { class: 'nav', 'aria-label': 'Navigasi utama' },
-          el('a', { href: location.pathname, 'data-nav': '', id: 'nav-home' }, 'Beranda'),
-          el('a', { href: location.pathname + '#semua', id: 'nav-all' }, 'Semua aplikasi')))),
+          el('a', { href: BASE, 'data-nav': '', id: 'nav-home' }, 'Beranda'),
+          el('a', { href: BASE + '#semua', id: 'nav-all' }, 'Semua aplikasi')))),
       el('main', { id: 'main' }),
       el('footer', { class: 'foot' }, el('div', { class: 'wrap' }, brand(), el('span', null, '© ' + new Date().getFullYear() + ' SURKUS DIGITAL · apps.surkus.my.id'))));
   }
@@ -707,7 +711,7 @@ function drawHome(main) {
 function syncUrl() {
   const u = new URLSearchParams();
   if (P.q) u.set('q', P.q); if (P.cat) u.set('kategori', P.cat);
-  history.replaceState({}, '', location.pathname + (u.toString() ? '?' + u : ''));
+  history.replaceState({}, '', BASE + (u.toString() ? '?' + u : ''));
 }
 
 function drawGrid() {
@@ -745,7 +749,7 @@ async function renderDetail(slug) {
     document.title = 'Aplikasi tidak ditemukan — SURKUS APPS';
     main.replaceChildren(el('div', { class: 'wrap', style: { marginTop: '32px' } }, el('div', { class: e.code === 'NOT_FOUND' ? 'empty' : 'errbox', role: 'alert' },
       el('h3', { text: e.code === 'NOT_FOUND' ? 'Aplikasi tidak ditemukan' : 'Data belum bisa dimuat' }), el('p', { text: e.message }),
-      el('div', { style: { marginTop: '14px' } }, e.code === 'NOT_FOUND' ? el('a', { class: 'btn primary', href: location.pathname, 'data-nav': '' }, 'Lihat semua aplikasi') : btn('Coba lagi', { kind: 'primary', onClick: () => renderDetail(slug) })))));
+      el('div', { style: { marginTop: '14px' } }, e.code === 'NOT_FOUND' ? el('a', { class: 'btn primary', href: BASE, 'data-nav': '' }, 'Lihat semua aplikasi') : btn('Coba lagi', { kind: 'primary', onClick: () => renderDetail(slug) })))));
     return;
   }
   const a = d.app, latest = d.versions[0] || null;
@@ -787,7 +791,7 @@ async function renderDetail(slug) {
     row('Diperbarui', fmtDate(a.updated_at)), row('Kategori', a.kategori_nama || '-'), row('Developer', a.developer || '-'))));
 
   main.replaceChildren(el('div', { class: 'wrap' },
-    el('a', { class: 'back', href: location.pathname, 'data-nav': '' }, icon('back'), 'Semua aplikasi'), head,
+    el('a', { class: 'back', href: BASE, 'data-nav': '' }, icon('back'), 'Semua aplikasi'), head,
     el('div', { class: 'd-cols' }, el('div', null, shotsPanel, descPanel, verPanel), side)));
 }
 function row(k, v) { return el('div', null, el('dt', { text: k }), el('dd', { text: String(v) })); }
@@ -845,11 +849,11 @@ function loginView(msg, fatal) {
     e.preventDefault(); err.style.display = 'none';
     try {
       await busy(submit, async () => { const r = await call('login', { username: u.value, password: p.value }, true); saveToken(r.token); ADM.user = r.user; });
-      history.replaceState({}, '', '?page=admin'); renderAdmin();
+      history.replaceState({}, '', ADMIN_HREF); renderAdmin();
     } catch (ex) { err.textContent = ex.message; err.style.display = 'block'; p.value = ''; }
   } }, field('Username', u), field('Password', el('span', { class: 'pw' }, p, eye)), err, submit);
   return el('div', { class: 'login' }, el('div', { class: 'box' }, brand(), el('h1', { text: 'Masuk Admin' }), el('p', { class: 'sub', text: 'Kelola katalog aplikasi SURKUS APPS.' }), form,
-    el('p', { style: { marginTop: '16px', textAlign: 'center' } }, el('a', { href: location.pathname, 'data-nav': '' }, 'Kembali ke katalog'))));
+    el('p', { style: { marginTop: '16px', textAlign: 'center' } }, el('a', { href: BASE, 'data-nav': '' }, 'Kembali ke katalog'))));
 }
 
 function admGo(view, id) {
@@ -865,8 +869,8 @@ function drawAdminShell() {
     })),
     el('div', { class: 'spacer' }),
     el('div', { class: 'who' }, el('b', { text: ADM.user.nama || ADM.user.username }), ADM.user.role),
-    el('a', { class: 'nb', href: location.pathname, 'data-nav': '' }, icon('globe'), 'Lihat situs'),
-    el('button', { type: 'button', class: 'nb out', onclick: async () => { try { await adm('logout'); } catch (e) {} saveToken(''); ADM.user = null; history.replaceState({}, '', '?page=admin'); renderAdmin(); } }, icon('out'), 'Keluar'));
+    el('a', { class: 'nb', href: BASE, 'data-nav': '' }, icon('globe'), 'Lihat situs'),
+    el('button', { type: 'button', class: 'nb out', onclick: async () => { try { await adm('logout'); } catch (e) {} saveToken(''); ADM.user = null; history.replaceState({}, '', ADMIN_HREF); renderAdmin(); } }, icon('out'), 'Keluar'));
   const main = el('main', { class: 'am', id: 'am' });
   $('#app').replaceChildren(el('div', { class: 'adm' }, side, main));
   const views = { dashboard: vDashboard, apps: vApps, app: vAppEdit, cats: vCats, log: vLog, account: vAccount };
@@ -1098,7 +1102,7 @@ function vAccount(m) {
 
 /* ------------------------------ mulai ------------------------------ */
 (function init() {
-  if (!API_URL && new URLSearchParams(location.search).get('page') !== 'admin') {
+  if (!API_URL && !isAdminRoute()) {
     mountPublic('home');
     $('#main').replaceChildren(el('div', { class: 'wrap', style: { marginTop: '40px' } }, el('div', { class: 'notice' }, 'URL backend belum diatur. Buka index.html, isi konstanta API_URL dengan URL Web App Google Apps Script, lalu unggah ulang ke GitHub.')));
     return;
@@ -1190,10 +1194,10 @@ function vAccount(m) {
 /* Menu bawah ala Play Store (hanya tampil di HP, halaman publik) */
 (function () {
   const mk = (k, t, href, ic, nav) => { const a = el('a', { href, 'data-k': k }, icon(ic), el('span', null, t)); if (nav) a.setAttribute('data-nav', ''); return a; };
-  const bn = el('nav', { class: 'bn', 'aria-label': 'Menu bawah' }, mk('home', 'Beranda', location.pathname, 'grid', 1), mk('all', 'Aplikasi', location.pathname + '#semua', 'box', 0), mk('adm', 'Admin', '?page=admin', 'user', 1));
+  const bn = el('nav', { class: 'bn', 'aria-label': 'Menu bawah' }, mk('home', 'Beranda', BASE, 'grid', 1), mk('all', 'Aplikasi', BASE + '#semua', 'box', 0));
   document.body.append(bn);
   function sync() {
-    const q = new URLSearchParams(location.search), a = q.get('page') === 'admin';
+    const q = new URLSearchParams(location.search), a = isAdminRoute();
     document.body.classList.toggle('pm', !a);
     bn.querySelectorAll('a').forEach(x => x.classList.toggle('on', x.dataset.k === (a ? 'adm' : q.get('app') ? '' : 'home')));
   }
