@@ -2,10 +2,10 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SURKUS APPS — Katalog aplikasi SURKUS DIGITAL</title>
 <meta name="description" content="Katalog aplikasi resmi SURKUS DIGITAL. Lihat versi, catatan pembaruan, dan unduh APK.">
-<meta name="theme-color" content="#070f2b">
+<meta name="theme-color" content="#070b1c">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%232f6bff'/%3E%3Cstop offset='1' stop-color='%23070f2b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='url(%23g)'/%3E%3Cpath d='M21.5 11C19.5 8.8 11.5 9 11.5 14c0 5 9.5 3 9.5 8.2 0 4.7-8.6 4.6-10.6 2' fill='none' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -287,6 +287,67 @@ textarea.in{resize:vertical;min-height:90px}
   .shots button{height:280px}
   .search{border-radius:16px}
 }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<style id="tema-mewah">
+/* SURKUS APPS — tema mewah: navy tua + emas champagne. Letakkan SETELAH <style> bawaan. */
+:root{--navy-950:#04060f;--navy-900:#070b1c;--navy-800:#0d1430;--navy-700:#161f4a;--blue-700:#7a5c1d;--blue-600:#8a6a25;--blue-500:#c9a24d;--sky:#e6c97a;--sky-soft:#f6edd3;
+--ink:#0b1022;--muted:#6a6a73;--faint:#9a9588;--line:#e8dfc8;--paper:#fcfaf4;--wash:#f4efe2;
+--gold:linear-gradient(135deg,#f3dc9b 0%,#d4b46a 45%,#9c7a2e 100%);--font-display:'Cormorant Garamond','Times New Roman',Georgia,serif;--shadow:0 2px 4px rgba(7,11,28,.05),0 18px 40px -18px rgba(156,122,46,.45)}
+html,body{overflow-x:hidden}
+body{background:var(--paper)}
+h1,h2,h3,h4{font-weight:600;letter-spacing:0}
+.top{background:rgba(7,11,28,.94);border-bottom:1px solid rgba(212,180,106,.28);padding-top:env(safe-area-inset-top)}
+.brand b{font-weight:700;letter-spacing:.12em}.brand b span{color:#e6c97a}
+.brand svg rect{fill:#0d1430;stroke:#d4b46a;stroke-width:1.2}.brand svg circle{fill:#e6c97a}
+.nav a{color:#d9d2bd}.nav a:hover,.nav a.on{background:rgba(212,180,106,.14);color:#f3dc9b}
+.hero{background:radial-gradient(900px 460px at 82% -15%,rgba(212,180,106,.38),transparent 60%),radial-gradient(520px 380px at 0% 100%,rgba(212,180,106,.12),transparent 60%),linear-gradient(180deg,#04060f,#0d1430);border-bottom:1px solid rgba(212,180,106,.35)}
+.hero::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Crect x='12' y='12' width='48' height='48' rx='14' fill='none' stroke='%23d4b46a' stroke-opacity='.16' stroke-width='1.2'/%3E%3C/svg%3E")}
+.hero h1{font-size:clamp(40px,7vw,78px);font-weight:600;line-height:1.02;max-width:13ch;background:linear-gradient(180deg,#fff 30%,#e9d291);-webkit-background-clip:text;background-clip:text;color:transparent;animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+.hero .lead{color:#c9c3b0;font-size:19px}.hero-facts{color:#b9b29c}.hero-facts b{color:#f3dc9b;font-family:var(--font-display);font-size:24px}
+.search{border:1px solid rgba(212,180,106,.5)}.search:focus-within{box-shadow:0 0 0 3px rgba(230,201,122,.7),0 18px 50px -18px rgba(0,0,0,.6)}
+.ghost-tile{border-color:rgba(212,180,106,.35)}.tile{color:#e8dfc2}
+.logo{box-shadow:0 0 0 1px rgba(212,180,106,.55),0 10px 26px -10px rgba(7,11,28,.75)}
+.btn.primary{background:var(--gold);color:#241a05;box-shadow:0 8px 22px -8px rgba(156,122,46,.8),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn.primary:hover:not(:disabled){background:linear-gradient(135deg,#f8e6ad,#dcbc72 45%,#a98433);filter:none}
+.btn.ghost:hover:not(:disabled){background:var(--sky-soft);border-color:#d4b46a}
+.btn.big{font-family:var(--font-display);font-size:21px;font-weight:700;letter-spacing:.08em}
+.card{background:#fff;border-color:var(--line);border-radius:20px}
+.card:hover{border-color:#d4b46a;box-shadow:var(--shadow)}
+.card h3,.mini h3{font-size:22px}.tag{background:var(--sky-soft);color:#7a5c1d}
+.chip-btn{background:#fff}.chip-btn:hover{border-color:#d4b46a}
+.chip-btn[aria-pressed="true"]{background:var(--navy-900);border-color:#d4b46a;color:#f3dc9b}.chip-btn[aria-pressed="true"] small{color:#e6c97a}
+.mini{background:linear-gradient(135deg,#070b1c,#161f4a);border:1px solid rgba(212,180,106,.35)}.mini small{color:#bdb59c}
+.block-h h2{font-size:clamp(28px,4vw,40px)}
+.d-head{background:radial-gradient(500px 240px at 100% 0,rgba(212,180,106,.3),transparent 70%),linear-gradient(135deg,#04060f,#161f4a);border:1px solid rgba(212,180,106,.45);box-shadow:0 30px 60px -30px rgba(7,11,28,.8)}
+.d-head h1{font-size:clamp(34px,5vw,54px)}.d-head .tag{background:rgba(212,180,106,.18);color:#f3dc9b}
+.panel{border-radius:20px;border-color:var(--line)}.panel h2{font-size:26px}
+.foot{background:#04060f;border-top:1px solid rgba(212,180,106,.35);color:#a79f89}
+.lightbox{background:rgba(4,6,15,.94)}
+.toast{border-left-color:#d4b46a;background:#070b1c}
+.in:focus{outline-color:rgba(212,180,106,.6);border-color:#c9a24d}
+.side{background:linear-gradient(180deg,#04060f,#0d1430);border-right:1px solid rgba(212,180,106,.3)}
+.nb{color:#d9d2bd}.nb:hover{background:rgba(212,180,106,.14);color:#f3dc9b}.nb.on{background:var(--gold);color:#241a05}
+.login{background:radial-gradient(700px 400px at 80% 0,rgba(212,180,106,.4),transparent 60%),#04060f}.login .box{border:1px solid #d4b46a}.login .brand b span{color:#9c7a2e}
+.am h1{font-size:40px}.stat b{font-size:44px;color:#7a5c1d}
+.modal{border:1px solid rgba(212,180,106,.5)}
+/* ---- upload dari perangkat ---- */
+.upl-row{display:flex;gap:10px;flex-wrap:wrap;margin:-4px 0 14px}
+.upl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin:0 0 14px}
+.upl-th{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--wash)}
+.upl-th img{width:100%;height:100%;object-fit:cover}
+.upl-th button{position:absolute;top:6px;right:6px;width:30px;height:30px;border:0;border-radius:50%;background:rgba(7,11,28,.85);color:#fff;font-size:18px;cursor:pointer}
+.upl-add{aspect-ratio:9/16;border:1.5px dashed #c9a24d;border-radius:14px;background:var(--sky-soft);color:#7a5c1d;font-weight:600;cursor:pointer;display:grid;place-items:center;text-align:center;padding:8px;font-size:14px}
+.upl-add:hover{background:#f1e4bd}
+/* ---- responsif ---- */
+@media (max-width:920px){.hero .wrap{text-align:center}.hero h1,.hero .lead,.search{margin-left:auto;margin-right:auto}.hero-facts{justify-content:center}.d-head{text-align:center;justify-content:center}.d-head .meta{justify-content:center}.side{padding-top:calc(10px + env(safe-area-inset-top))}}
+@media (max-width:560px){
+ .overlay{align-items:end;padding:0}.modal{max-width:100%;border-radius:24px 24px 0 0;max-height:92vh;padding-bottom:env(safe-area-inset-bottom)}
+ .modal-f .btn{flex:1}.d-cta{min-width:0}.hero .wrap{padding-top:36px;padding-bottom:40px}
+ .nav a:last-child{display:none}.card{padding:16px}.am h1{font-size:32px}.stats{grid-template-columns:1fr 1fr}.bar .in{max-width:none}.bar>.btn{flex:1}
+ #toasts{bottom:calc(12px + env(safe-area-inset-bottom))}}
+
 </style>
 </head>
 <body>
@@ -977,6 +1038,86 @@ function vAccount(m) {
   }
   route();
 })();
+</script>
+<script>
+/* Upload logo & screenshot dari perangkat */
+(function () {
+  const MAX_SHOTS = 10;
+  function shrink(file, max, mime) {
+    return new Promise((ok, no) => {
+      const url = URL.createObjectURL(file), img = new Image();
+      img.onload = () => {
+        const k = Math.min(1, max / Math.max(img.width, img.height)), c = document.createElement('canvas');
+        c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        const x = c.getContext('2d');
+        if (mime === 'image/jpeg') { x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); }
+        x.drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+        ok(c.toDataURL(mime, .86).split(',')[1]);
+      };
+      img.onerror = () => no(new Error('File bukan gambar yang valid.'));
+      img.src = url;
+    });
+  }
+  async function upload(file, kind) {
+    const mime = kind === 'logo' ? 'image/png' : 'image/jpeg';
+    try { return (await adm('uploadImage', { mime, data: await shrink(file, kind === 'logo' ? 420 : 1400, mime) })).url; }
+    catch (e) { throw new Error(/tidak dikenal/i.test(e.message) ? 'Backend belum diperbarui: tambahkan fungsi uploadImage ke Code.gs lalu deploy versi baru.' : e.message); }
+  }
+  function picker(multi, onFiles) {
+    const i = el('input', { type: 'file', accept: 'image/*', multiple: multi, style: { display: 'none' } });
+    i.addEventListener('change', () => { if (i.files.length) onFiles([...i.files]); i.remove(); });
+    document.body.append(i); i.click();
+  }
+  function relabel(label, title, hint) {
+    const s = label.querySelector('span'), h = label.querySelector('small');
+    if (s) s.textContent = title; if (h) h.textContent = hint;
+  }
+  function enhanceLogo(inp) {
+    inp.dataset.up = 1; inp.style.display = 'none';
+    const label = inp.closest('label'); relabel(label, 'Logo aplikasi', 'Pilih foto dari galeri atau file di perangkat. Kosong = inisial otomatis.');
+    const pick = btn('Pilih logo dari perangkat', { kind: 'primary', small: true, icon: 'plus' });
+    const del = btn('Hapus logo', { small: true });
+    pick.addEventListener('click', () => picker(false, async ([f]) => {
+      const old = pick.textContent; pick.disabled = true; pick.textContent = 'Mengunggah…';
+      try { inp.value = await upload(f, 'logo'); inp.dispatchEvent(new Event('change')); toast('Logo terunggah. Klik Simpan untuk menyimpan.', 'ok'); }
+      catch (e) { toast(e.message, 'err'); } finally { pick.disabled = false; pick.textContent = old; }
+    }));
+    del.addEventListener('click', () => { inp.value = ''; inp.dispatchEvent(new Event('change')); });
+    label.after(el('div', { class: 'upl-row' }, pick, del));
+  }
+  function enhanceShots(ta) {
+    ta.dataset.up = 1; ta.style.display = 'none';
+    const label = ta.closest('label'); relabel(label, 'Screenshot aplikasi (maksimal 10)', 'Pilih beberapa foto sekaligus dari perangkat. Klik × untuk menghapus.');
+    const old = label.nextElementSibling; if (old && old.classList.contains('thumbs')) old.style.display = 'none';
+    const grid = el('div', { class: 'upl-grid' });
+    const urls = () => ta.value.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+    const set = a => { ta.value = a.join('\n'); ta.dispatchEvent(new Event('change')); draw(); };
+    function draw() {
+      const a = urls();
+      grid.replaceChildren(...a.map((u, i) => el('div', { class: 'upl-th' },
+        el('img', { src: u, alt: 'Screenshot ' + (i + 1), referrerpolicy: 'no-referrer' }),
+        el('button', { type: 'button', 'aria-label': 'Hapus screenshot ' + (i + 1), onclick: () => { a.splice(i, 1); set(a); } }, '×'))),
+        a.length < MAX_SHOTS ? el('button', { type: 'button', class: 'upl-add', onclick: add }, '+ Tambah foto') : null);
+    }
+    function add() {
+      picker(true, async files => {
+        const a = urls(); const room = MAX_SHOTS - a.length;
+        if (files.length > room) toast('Hanya ' + room + ' foto lagi yang bisa ditambahkan.', 'err');
+        for (const f of files.slice(0, room)) {
+          try { toast('Mengunggah ' + f.name + '…'); a.push(await upload(f, 'shot')); set(a); }
+          catch (e) { toast(e.message, 'err'); break; }
+        }
+        toast('Selesai. Klik Simpan untuk menyimpan.', 'ok');
+      });
+    }
+    label.after(grid); draw();
+  }
+  new MutationObserver(() => {
+    const l = document.querySelector('input.in[placeholder*="logo.png"]'); if (l && !l.dataset.up) enhanceLogo(l);
+    const s = document.querySelector('textarea.in[placeholder*="Satu URL gambar"]'); if (s && !s.dataset.up) enhanceShots(s);
+  }).observe(document.body, { childList: true, subtree: true });
+})();
+
 </script>
 </body>
 </html>
