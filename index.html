@@ -436,6 +436,31 @@ body:not(.pm) #toasts{bottom:calc(76px + env(safe-area-inset-bottom))}
 .li .acts .btn{flex:1}
 }
 </style>
+<style id="hp2">
+#app{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+#app>#main{flex:1 0 auto}#app>.adm{flex:1 0 auto}
+#main:has(.skel)~.foot{visibility:hidden}
+.brand .bm{width:34px;height:34px;border-radius:10px;object-fit:cover;flex:none;background:#fff}
+@media (max-width:700px){
+.brand .bm{width:30px;height:30px}
+.top .wrap{height:48px}
+.hero{top:calc(48px + env(safe-area-inset-top))}
+.hero .wrap{padding:4px 16px 8px}.search input{padding:7px 0}
+#semua{scroll-margin-top:calc(108px + env(safe-area-inset-top))}
+body.pm{padding-bottom:calc(50px + env(safe-area-inset-bottom))}
+body.pm #toasts{bottom:calc(60px + env(safe-area-inset-bottom))}
+body.pm .bn{padding:3px 6px calc(3px + env(safe-area-inset-bottom));transition:transform .25s}
+.bn a{gap:0;font-size:11px;padding:3px 0}
+.bn a .ico{width:44px;height:24px;border-radius:12px}
+.bn a .ico svg{width:19px;height:19px}
+.side nav{padding:3px 4px calc(3px + env(safe-area-inset-bottom));transition:transform .25s}
+.side nav .nb{padding:5px 2px;gap:1px;font-size:10.5px}
+.side nav .nb .ico{width:20px;height:20px}
+.am{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+body:not(.pm) #toasts{bottom:calc(64px + env(safe-area-inset-bottom))}
+body.nav-hide .bn,body.nav-hide .side nav{transform:translateY(105%)}
+}
+</style>
 </head>
 <body>
 <div id="app"></div>
@@ -497,7 +522,29 @@ const ICONS = {
 };
 function icon(name) { const s = el('span', { class: 'ico', 'aria-hidden': 'true' }); s.innerHTML = ICONS[name] || ''; return s; }
 
+const SITE = { logo: '' };
+try { SITE.logo = localStorage.getItem('surkus_logo') || ''; } catch (e) {}
 function brandMark() {
+  const u = safeUrl(SITE.logo);
+  if (!u) return defaultMark();
+  const i = el('img', { class: 'bm', src: u, alt: '', referrerpolicy: 'no-referrer' });
+  i.addEventListener('error', () => i.replaceWith(defaultMark()));
+  return i;
+}
+function setFavicon() {
+  const l = document.querySelector('link[rel="icon"]'); if (!l) return;
+  if (!l.dataset.d) l.dataset.d = l.href;
+  l.href = safeUrl(SITE.logo) || l.dataset.d;
+}
+function applySite(st) {
+  const u = (st && st.site_logo) || '';
+  try { u ? localStorage.setItem('surkus_logo', u) : localStorage.removeItem('surkus_logo'); } catch (e) {}
+  if (u === SITE.logo) return;
+  SITE.logo = u; setFavicon();
+  document.querySelectorAll('.brand').forEach(b => { const o = b.firstElementChild; if (o) o.replaceWith(brandMark()); });
+}
+setFavicon();
+function defaultMark() {
   const d = document.createElement('div');
   d.innerHTML = '<svg viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#0c1a4a"/></linearGradient></defs><rect width="32" height="32" rx="9" fill="url(#bg1)"/><path d="M21.5 11C19.5 8.8 11.5 9 11.5 14c0 5 9.5 3 9.5 8.2 0 4.7-8.6 4.6-10.6 2" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="24.5" cy="7.5" r="2.2" fill="#5cc8ff"/></svg>';
   return d.firstChild;
@@ -662,6 +709,7 @@ function skeletons(n) { return el('div', { class: 'grid' }, Array.from({ length:
 async function loadPub(force) {
   if (P.data && !force) return P.data;
   P.data = await pub('list');
+  applySite(P.data.settings);
   return P.data;
 }
 
@@ -844,7 +892,7 @@ async function startDownload(app, version, button, noteEl) {
 /* ============================== ADMIN ============================== */
 const ADM = { user: null, view: 'dashboard', id: '', cats: null };
 
-const NAV = [['dashboard', 'Dashboard', 'grid'], ['apps', 'Aplikasi', 'box'], ['cats', 'Kategori', 'tag'], ['log', 'Aktivitas', 'clock'], ['account', 'Akun', 'user']];
+const NAV = [['dashboard', 'Dashboard', 'grid'], ['apps', 'Aplikasi', 'box'], ['cats', 'Kategori', 'tag'], ['log', 'Aktivitas', 'clock'], ['account', 'Pengaturan', 'user']];
 
 async function renderAdmin(msg) {
   document.title = 'Admin — SURKUS APPS';
@@ -1117,7 +1165,19 @@ function vAccount(m) {
     try { await busy(s, () => adm('changePassword', { current_password: cur.value, new_password: nw.value })); toast('Password diganti.', 'ok'); cur.value = nw.value = nw2.value = ''; }
     catch (ex) { toast(ex.message, 'err'); }
   } }, field('Password saat ini', cur), field('Password baru', nw, 'Minimal 8 karakter.'), field('Ulangi password baru', nw2), s);
-  m.replaceChildren(el('h1', { text: 'Akun' }), el('p', { class: 'sub', text: 'Masuk sebagai ' + ADM.user.username + ' (' + ADM.user.role + ').' }), form);
+  let logoUrl = SITE.logo || '';
+  const prev = el('div', { class: 'prev' });
+  const drawL = () => prev.replaceChildren(logoUrl ? el('img', { class: 'bm', src: logoUrl, alt: 'Logo situs', referrerpolicy: 'no-referrer', style: { width: '72px', height: '72px' } }) : defaultMark());
+  drawL();
+  const pickB = btn('Pilih logo dari perangkat', { kind: 'primary', small: true, icon: 'plus', onClick: () => window.surkusPicker(false, async ([f]) => {
+    try { toast('Mengunggah…'); logoUrl = await window.surkusUpload(f, 'logo'); drawL(); toast('Logo terunggah. Tekan Simpan logo.', 'ok'); } catch (e) { toast(e.message, 'err'); } }) });
+  const delB = btn('Pakai logo bawaan', { small: true, onClick: () => { logoUrl = ''; drawL(); } });
+  const saveL = btn('Simpan logo', { kind: 'primary', onClick: async () => {
+    try { await busy(saveL, () => adm('saveSettings', { site_logo: logoUrl })); applySite({ site_logo: logoUrl }); P.data = null; toast('Logo situs disimpan.', 'ok'); }
+    catch (e) { toast(/tidak dikenal/i.test(e.message) ? 'Backend belum diperbarui: pasang Code.gs terbaru lalu deploy versi baru.' : e.message, 'err'); } } });
+  const sitePanel = el('div', { class: 'panel', style: { maxWidth: '460px', marginBottom: '18px' } }, el('h2', { text: 'Logo situs', style: { fontSize: '21px', marginBottom: '12px' } }), prev,
+    el('div', { class: 'upl-row', style: { marginTop: '14px' } }, pickB, delB), saveL);
+  m.replaceChildren(el('h1', { text: 'Pengaturan' }), el('p', { class: 'sub', text: 'Masuk sebagai ' + ADM.user.username + ' (' + ADM.user.role + ').' }), sitePanel, el('h2', { style: { fontSize: '21px', margin: '0 0 10px' }, text: 'Ganti password' }), form);
 }
 
 /* ------------------------------ mulai ------------------------------ */
@@ -1134,6 +1194,7 @@ function vAccount(m) {
 /* Upload logo & screenshot dari perangkat */
 (function () {
   const MAX_SHOTS = 10;
+  window.surkusUpload = (f, k) => upload(f, k); window.surkusPicker = (m, cb) => picker(m, cb);
   function shrink(file, max, mime) {
     return new Promise((ok, no) => {
       const url = URL.createObjectURL(file), img = new Image();
@@ -1224,6 +1285,8 @@ function vAccount(m) {
   ['pushState', 'replaceState'].forEach(f => { const o = history[f]; history[f] = function () { const r = o.apply(this, arguments); sync(); return r; }; });
   addEventListener('popstate', sync); sync();
   addEventListener('hashchange', () => { if (location.hash === '#admin') { route(); sync(); } });
+  let ly = scrollY;
+  addEventListener('scroll', () => { const y = scrollY, d = y - ly; if (Math.abs(d) < 8) return; document.body.classList.toggle('nav-hide', d > 0 && y > 80); ly = y; }, { passive: true });
 })();
 </script>
 </body>
